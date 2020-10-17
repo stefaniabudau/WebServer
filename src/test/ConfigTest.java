@@ -1,8 +1,8 @@
 package test;
 
 import config.Config;
-import exception.InvalidConfigurationFileException;
-import exception.SaveConfigurationFailureException;
+import exception.config.InvalidConfigurationFileException;
+import exception.config.SaveConfigurationFailureException;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

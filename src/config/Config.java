@@ -1,7 +1,7 @@
 package config;
 
-import exception.InvalidConfigurationFileException;
-import exception.SaveConfigurationFailureException;
+import exception.config.InvalidConfigurationFileException;
+import exception.config.SaveConfigurationFailureException;
 import validator.ConfigFileValidator;
 
 public class Config {

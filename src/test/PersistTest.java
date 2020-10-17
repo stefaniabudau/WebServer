@@ -1,10 +1,9 @@
 package test;
 
 import config.Persist;
-import exception.InvalidMaintenanceDirException;
-import exception.InvalidPortNumberException;
-import exception.InvalidRootDirException;
-import org.junit.Assert;
+import exception.config.InvalidMaintenanceDirException;
+import exception.config.InvalidPortNumberException;
+import exception.config.InvalidRootDirException;
 import org.junit.Test;
 
 public class PersistTest {

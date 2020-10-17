@@ -1,8 +1,8 @@
 package config;
 
-import exception.InvalidMaintenanceDirException;
-import exception.InvalidPortNumberException;
-import exception.InvalidRootDirException;
+import exception.config.InvalidMaintenanceDirException;
+import exception.config.InvalidPortNumberException;
+import exception.config.InvalidRootDirException;
 import validator.MaintenanceDirValidator;
 import validator.PortNumberValidator;
 import validator.RootDirValidator;
