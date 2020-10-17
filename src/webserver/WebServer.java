@@ -5,6 +5,7 @@ import java.io.*;
 
 public class WebServer extends Thread {
 	protected Socket clientSocket;
+	private WebServerUtils utils = new WebServerUtils();
 
 
 	private WebServer(Socket clientSoc) {
@@ -46,23 +47,17 @@ public class WebServer extends Thread {
 		System.out.println("New Communication Thread Started");
 
 		try {
-			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(clientSocket.getInputStream()));
+			OutputStream out = clientSocket.getOutputStream();
+			InputStreamReader in = new InputStreamReader(clientSocket.getInputStream());
 
-			String inputLine;
-			
-			while ((inputLine = in.readLine()) != null) {
-				System.out.println("Server: " + inputLine);
-				out.println(inputLine);
-
-				if (inputLine.trim().equals(""))
-					break;
-			}
+			String[] request;
+			request = utils.getRequest(this.clientSocket, in);
+			utils.sendResponse(this.clientSocket, out);
 
 			out.close();
 			in.close();
-			clientSocket.close();
+			this.clientSocket.close();
+
 		} catch (IOException e) {
 			System.err.println("Problem with Communication Server");
 			System.exit(1);

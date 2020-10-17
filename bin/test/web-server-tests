@@ -1,0 +1,8 @@
+Request tests:
+* correct structure
+* correct request line structure
+* correct request line content
+
+Response tests:
+* correct structure
+* correct content
