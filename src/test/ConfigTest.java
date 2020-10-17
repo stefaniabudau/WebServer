@@ -19,14 +19,24 @@ public class ConfigTest {
     @Test
     public void testLoadConfigurationOk() throws InvalidConfigurationFileException {
         Config config = new Config("valid config");
-        config.loadConfiguration("path to valid config file");
+        String[] paths = {"good.txt", "good_file.txt", "good-file.txt", "GOOD.txt", "c:\\folder\\file.txt",
+                "\\folder1\\file2.txt", "File2.txt", "folder\\filE.txt", };
+
+        for(String path : paths ){
+            config.loadConfiguration(path);
+        }
     }
 
 
     @Test(expected = InvalidConfigurationFileException.class)
     public void testLoadConfigurationBad() throws InvalidConfigurationFileException {
         Config config = new Config("valid config");
-        config.loadConfiguration("path to invalid config file");
+        String[] paths = {"c:/te:t", "c:/te?t", "c/te*t", "not|good.txt", "not:good.txt", null, "1",
+                "not-good", "not-good.doc", "not-good.png", "a"};
+
+        for(String path : paths ) {
+            config.loadConfiguration(path);
+        }
     }
 
 
