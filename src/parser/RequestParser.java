@@ -8,32 +8,10 @@ import java.util.List;
 public class RequestParser {
 
     private String request;
-    private String requestLine;
-    private List<String> headers;
 
 
     public RequestParser(String request){
         this.request = request;
-//        this.requestLine = this.getRequestLine();
-//        this.headers = this.getHeaders();
-    }
-
-
-    /**
-     * TO DO: Take care of request line and handlers
-     * **/
-
-    private String getRequestLine() throws InvalidRequestLineException {
-        if(!RequestValidator.validateRequestLine(""))
-            throw new InvalidRequestLineException();
-        return null;
-    }
-
-
-    private List<String> getHeaders() throws InvalidRequestHeadersException {
-        if(!RequestValidator.validateHeaders(null))
-            throw new InvalidRequestHeadersException();
-        return null;
     }
 
 

@@ -5,14 +5,24 @@ import exception.config.InvalidConfigurationFileException;
 import exception.config.SaveConfigurationFailureException;
 import org.junit.Test;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ConfigTest {
 
+
+    /**
+     * TO DO: Implement a more efficient test, avoid hardcoding
+     * **/
     @Test
     public void testSetSetting(){
         Config config = new Config("valid config");
+
         assertTrue(config.setSetting("Port number", "10008"));
+        assertTrue(config.setSetting("Root dir", "/rootdir"));
+        assertTrue(config.setSetting("Maintenance Dir", "/mdir"));
     }
 
 
@@ -29,14 +39,30 @@ public class ConfigTest {
 
 
     @Test(expected = InvalidConfigurationFileException.class)
-    public void testLoadConfigurationBad() throws InvalidConfigurationFileException {
+    public void testLoadConfigurationBad1() throws InvalidConfigurationFileException {
         Config config = new Config("valid config");
-        String[] paths = {"c:/te:t", "c:/te?t", "c/te*t", "not|good.txt", "not:good.txt", null, "1",
-                "not-good", "not-good.doc", "not-good.png", "a"};
+        config.loadConfiguration("c:/te:t");
+    }
 
-        for(String path : paths ) {
-            config.loadConfiguration(path);
-        }
+
+    @Test(expected = InvalidConfigurationFileException.class)
+    public void testLoadConfigurationBad2() throws InvalidConfigurationFileException {
+        Config config = new Config("valid config");
+        config.loadConfiguration("not|good.txt");
+    }
+
+
+    @Test(expected = InvalidConfigurationFileException.class)
+    public void testLoadConfigurationBad3() throws InvalidConfigurationFileException {
+        Config config = new Config("valid config");
+        config.loadConfiguration(null);
+    }
+
+
+    @Test(expected = InvalidConfigurationFileException.class)
+    public void testLoadConfigurationBad4() throws InvalidConfigurationFileException {
+        Config config = new Config("valid config");
+        config.loadConfiguration("a");
     }
 
 

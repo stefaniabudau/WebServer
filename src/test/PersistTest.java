@@ -20,20 +20,44 @@ public class PersistTest {
 
 
     @Test(expected = InvalidPortNumberException.class)
-    public void testSetPortNumberBad() throws InvalidPortNumberException {
+    public void testSetPortNumberBad1() throws InvalidPortNumberException {
         Persist persist = new Persist();
-        Integer[] ports = {0, 1, 55, 800, 1000, 1023, 49152, 60000, 65535};
+        persist.setPortNumber(0);
+    }
 
-        for(Integer port: ports) {
-            persist.setPortNumber(port);
-        }
+
+    @Test(expected = InvalidPortNumberException.class)
+    public void testSetPortNumberBad2() throws InvalidPortNumberException {
+        Persist persist = new Persist();
+        persist.setPortNumber(1);
+    }
+
+
+    @Test(expected = InvalidPortNumberException.class)
+    public void testSetPortNumberBad3() throws InvalidPortNumberException {
+        Persist persist = new Persist();
+        persist.setPortNumber(55);
+    }
+
+
+    @Test(expected = InvalidPortNumberException.class)
+    public void testSetPortNumberBad4() throws InvalidPortNumberException {
+        Persist persist = new Persist();
+        persist.setPortNumber(800);
+    }
+
+
+    @Test(expected = InvalidPortNumberException.class)
+    public void testSetPortNumberBad5() throws InvalidPortNumberException {
+        Persist persist = new Persist();
+        persist.setPortNumber(50000);
     }
 
 
     @Test
-    public void testSetRootDirOk() throws InvalidRootDirException {
+    public void testValidSetRootDir() throws InvalidRootDirException {
         Persist persist = new Persist();
-        String[] paths = {"c:\\folder\\FOLDER", "d:\\folder1\\folder2", "Folder2", "\\folder_1\\folder-2", "folder\\folder" };
+        String[] paths = {"c:\\folder\\FOLDER", "d:\\folder1\\folder2", "Folder2", "\\folder_1\\folder-2", "folder\\folder", "foLder" };
 
         for(String path : paths) {
             persist.setRootDir(path);
@@ -42,18 +66,28 @@ public class PersistTest {
 
 
     @Test(expected = InvalidRootDirException.class)
-    public void testSetRootDirBad() throws InvalidRootDirException {
+    public void testInvalidRootDir1() throws InvalidRootDirException {
         Persist persist = new Persist();
-        String[] paths = {"c:\\folder\\FOLDER.txt", "fo|lder2", "Folder2.txt", "\\folder1\\folder:2", "folder?folder", "fol*der" };
+        persist.setRootDir("c:\\folder\\FOLDER.txt");
+    }
 
-        for(String path : paths) {
-            persist.setRootDir(path);
-        }
+
+    @Test(expected = InvalidRootDirException.class)
+    public void testInvalidRootDir2() throws InvalidRootDirException{
+        Persist persist = new Persist();
+        persist.setRootDir("fo|lder2");
+    }
+
+
+    @Test(expected = InvalidRootDirException.class)
+    public void testInvalidRootDir3() throws InvalidRootDirException{
+        Persist persist = new Persist();
+        persist.setRootDir("\\folder1\\folder:2");
     }
 
 
     @Test
-    public void testSetMaintenanceDirOk() throws InvalidMaintenanceDirException {
+    public void testValidMaintenanceDir() throws InvalidMaintenanceDirException {
         Persist persist = new Persist();
         String[] paths = {"c:\\folder\\FOLDER", "d:\\folder1\\folder2", "Folder2", "\\folder_1\\folder-2", "folder\\folder" };
 
@@ -64,12 +98,22 @@ public class PersistTest {
 
 
     @Test(expected = InvalidMaintenanceDirException.class)
-    public void testSetMaintenanceDirBad() throws InvalidMaintenanceDirException {
+    public void testSetMaintenanceDir1() throws InvalidMaintenanceDirException {
         Persist persist = new Persist();
-        String[] paths = {"c:\\folder\\FOLDER.txt", "fo|lder2", "Folder2.txt", "\\folder1\\folder:2", "folder?folder", "fol*der" };
+        persist.setMaintenanceDir("c:\\folder\\FOLDER.txt");
+    }
 
-        for(String path : paths) {
-            persist.setMaintenanceDir(path);
-        }
+
+    @Test(expected = InvalidMaintenanceDirException.class)
+    public void testSetMaintenanceDir2() throws InvalidMaintenanceDirException {
+        Persist persist = new Persist();
+        persist.setMaintenanceDir("folder?folder");
+    }
+
+
+    @Test(expected = InvalidMaintenanceDirException.class)
+    public void testSetMaintenanceDir3() throws InvalidMaintenanceDirException {
+        Persist persist = new Persist();
+        persist.setMaintenanceDir("Folder2.txt");
     }
 }

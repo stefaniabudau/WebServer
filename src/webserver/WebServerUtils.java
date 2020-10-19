@@ -27,17 +27,12 @@ public class WebServerUtils {
     }
 
 
-    public String getRequestLine(String request) {
-        String[] split = request.split("\r\n");
-        return split[0];
-    }
-
-
     public String[] buildResponse(){
         return null;
     }
 
     public void sendResponse(Socket socket, OutputStream out) throws IOException {
+
         out.write(("HTTP/1.1 200 OK\r\n").getBytes());
         out.write(("ContentType: " + "text/html\r\n").getBytes());
         out.write("\r\n".getBytes());
@@ -46,11 +41,7 @@ public class WebServerUtils {
         out.flush();
     }
 
-    public void closeConenction(){
-
-    }
-
-    public static void main(String[] args) {}
+    public void closeConenction(){}
 }
 
 
