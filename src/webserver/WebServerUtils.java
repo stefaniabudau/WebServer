@@ -2,28 +2,23 @@ package webserver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 
 public class WebServerUtils {
 
-    public String[] getRequest(Socket socket, InputStreamReader reader) throws IOException {
+    public String getRequest(BufferedReader reader) throws IOException {
         String inputLine;
-        String[] request= new String[100];
-        int index = 0;
+        StringBuilder request = new StringBuilder();
 
-        BufferedReader in = new BufferedReader(reader);
-
-        while ((inputLine = in.readLine()) != null) {
+        while ((inputLine = reader.readLine()) != null) {
             System.out.println(inputLine);
-            request[index] = inputLine;
-            index ++;
+            request.append(inputLine);
 
             if (inputLine.trim().equals(""))
                 break;
         }
-        return request;
+        return request.toString();
     }
 
 
@@ -31,8 +26,9 @@ public class WebServerUtils {
         return null;
     }
 
-    public void sendResponse(Socket socket, OutputStream out) throws IOException {
 
+    /* Dummy implementation */
+    public void sendResponse(OutputStream out) throws IOException {
         out.write(("HTTP/1.1 200 OK\r\n").getBytes());
         out.write(("ContentType: " + "text/html\r\n").getBytes());
         out.write("\r\n".getBytes());
@@ -41,7 +37,6 @@ public class WebServerUtils {
         out.flush();
     }
 
-    public void closeConenction(){}
 }
 
 

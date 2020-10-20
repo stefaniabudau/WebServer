@@ -48,14 +48,15 @@ public class WebServer extends Thread {
 
 		try {
 			OutputStream out = clientSocket.getOutputStream();
-			InputStreamReader in = new InputStreamReader(clientSocket.getInputStream());
+			BufferedReader in = new BufferedReader(
+					new InputStreamReader(clientSocket.getInputStream()));
 
-			String[] request;
-			request = utils.getRequest(this.clientSocket, in);
-			utils.sendResponse(this.clientSocket, out);
+			String request = utils.getRequest(in);
+			utils.sendResponse(out);
 
 			out.close();
 			in.close();
+
 			this.clientSocket.close();
 
 		} catch (IOException e) {
