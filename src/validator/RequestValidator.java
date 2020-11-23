@@ -26,9 +26,15 @@ public class RequestValidator {
     }
 
 
+    public static boolean validateMethod(String resource){
+        return false;
+    }
+
+
     public static boolean validateHTTPVersion(String version){
         return false;
     }
+
 
     public static boolean validateHost(String host) {
         return false;

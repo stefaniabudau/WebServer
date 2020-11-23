@@ -1,4 +1,4 @@
 package exception.request;
 
-public class InvalidRequestResourceException extends Exception {
+public class InvalidRequestResourceException extends InvalidRequestException {
 }

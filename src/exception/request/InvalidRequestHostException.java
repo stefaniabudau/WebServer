@@ -1,4 +1,4 @@
 package exception.request;
 
-public class InvalidRequestHostException extends Exception {
+public class InvalidRequestHostException extends InvalidRequestException {
 }

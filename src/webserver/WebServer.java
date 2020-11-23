@@ -1,7 +1,11 @@
 package webserver;
 
+import exception.request.InvalidRequestException;
+import handler.RequestHandler;
+
 import java.net.*;
 import java.io.*;
+import java.util.HashMap;
 
 public class WebServer extends Thread {
 	protected Socket clientSocket;
@@ -48,18 +52,18 @@ public class WebServer extends Thread {
 
 		try {
 			OutputStream out = clientSocket.getOutputStream();
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(clientSocket.getInputStream()));
 
-			String request = utils.getRequest(in);
+			RequestHandler requestHandler = new RequestHandler(clientSocket);
+			Request request = requestHandler.handleRequests();
+
 			utils.sendResponse(out);
 
 			out.close();
-			in.close();
+			requestHandler.close();
 
 			this.clientSocket.close();
 
-		} catch (IOException e) {
+		} catch (IOException | InvalidRequestException e) {
 			System.err.println("Problem with Communication Server");
 			System.exit(1);
 		}

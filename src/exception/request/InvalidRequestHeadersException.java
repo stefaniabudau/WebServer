@@ -1,4 +1,4 @@
 package exception.request;
 
-public class InvalidRequestHeadersException extends Exception {
+public class InvalidRequestHeadersException extends InvalidRequestException {
 }

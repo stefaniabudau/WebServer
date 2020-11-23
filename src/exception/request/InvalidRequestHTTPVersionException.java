@@ -1,4 +1,4 @@
 package exception.request;
 
-public class InvalidRequestHTTPVersionException extends Exception {
+public class InvalidRequestHTTPVersionException extends InvalidRequestException {
 }

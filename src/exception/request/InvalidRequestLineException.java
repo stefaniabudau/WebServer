@@ -1,4 +1,4 @@
 package exception.request;
 
-public class InvalidRequestLineException extends Exception {
+public class InvalidRequestLineException extends InvalidRequestException {
 }
