@@ -2,32 +2,26 @@ package handler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
 import java.util.HashMap;
 
 import exception.request.InvalidRequestException;
 import parser.RequestParser;
-import webserver.Request;
+
 
 public class RequestHandler {
 
-    private Request newRequest;
+    private HashMap<String, String> requestDetails;
     private BufferedReader in;
 
-    public RequestHandler(Socket clientSocket) throws IOException {
-        this.in = new BufferedReader(
-                new InputStreamReader(clientSocket.getInputStream()));
+    public RequestHandler(BufferedReader in) throws IOException {
+        this.requestDetails = new HashMap<>();
+        this.in = in;
     }
 
-    public Request handleRequests() throws IOException, InvalidRequestException {
+    public HashMap handleRequests() throws IOException, InvalidRequestException {
         String request = this.getRequest();
         this.createNewRequest(request);
-        return this.newRequest;
-    }
-
-    public void close() throws IOException {
-        this.in.close();
+        return this.requestDetails;
     }
 
     private String getRequest() throws IOException {
@@ -47,10 +41,9 @@ public class RequestHandler {
 
     private void createNewRequest(String request) throws InvalidRequestException {
         RequestParser parser = new RequestParser(request);
-        this.newRequest = new Request(
-                parser.getMethod(),
-                parser.getResource(),
-                parser.getHost(),
-                parser.getHTTPVersion());
+        this.requestDetails.put("method", parser.getMethod());
+        this.requestDetails.put("uri", parser.getResource());
+        this.requestDetails.put("host", parser.getHost());
+        this.requestDetails.put("HTTP version", parser.getHTTPVersion());
     }
 }

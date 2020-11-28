@@ -1,5 +1,12 @@
 package webserver;
 
+import exception.request.InvalidRequestException;
+import handler.RequestHandler;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Request {
@@ -8,15 +15,14 @@ public class Request {
     private String HTTPVersion;
     private String host;
 
-    public Request(String method,
-                   String URI,
-                   String HTTPVersion,
-                   String host){
+    public Request(BufferedReader in) throws IOException, InvalidRequestException {
+        RequestHandler handler = new RequestHandler(in);
+        HashMap<String, String> requestDetails = handler.handleRequests();
 
-        this.method = method;
-        this.URI = URI;
-        this.HTTPVersion = HTTPVersion;
-        this.host = host;
+        this.method = requestDetails.get("method");
+        this.URI = requestDetails.get("uri");
+        this.HTTPVersion = requestDetails.get("HTTP version");
+        this.host = requestDetails.get("host");
     }
 
     public String getMethod() {

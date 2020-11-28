@@ -1,11 +1,9 @@
 package webserver;
 
 import exception.request.InvalidRequestException;
-import handler.RequestHandler;
 
 import java.net.*;
 import java.io.*;
-import java.util.HashMap;
 
 public class WebServer extends Thread {
 	protected Socket clientSocket;
@@ -51,16 +49,13 @@ public class WebServer extends Thread {
 		System.out.println("New Communication Thread Started");
 
 		try {
-			OutputStream out = clientSocket.getOutputStream();
+			Channel communicationChannel = new Channel(this.clientSocket);
+			communicationChannel.create();
 
-			RequestHandler requestHandler = new RequestHandler(clientSocket);
-			Request request = requestHandler.handleRequests();
+			Request request = new Request(communicationChannel.getClientEnd());
+			Response response = new Response(communicationChannel.getWebServerEnd(), request);
 
-			utils.sendResponse(out);
-
-			out.close();
-			requestHandler.close();
-
+			communicationChannel.close();
 			this.clientSocket.close();
 
 		} catch (IOException | InvalidRequestException e) {

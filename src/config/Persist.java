@@ -13,7 +13,7 @@ public class Persist {
     private Config config;
 
     public Persist(String configPath) throws InvalidConfigurationFileException {
-        this.config = new Config(configPath);
+        this.config = Config.getConfig(configPath);
     }
 
     public int getPortNumber() throws InvalidPortNumberException {

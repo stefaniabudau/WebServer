@@ -1,13 +1,9 @@
 package provider;
 
-public class HTMLProvider extends ContentProvider {
-
-    public HTMLProvider(String resource) {
-        super(resource);
-    }
+public class HTMLProvider implements ContentProvider {
 
     @Override
-    public String provide() {
+    public String provide(String uri) {
         return null;
     }
 }

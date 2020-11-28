@@ -13,14 +13,23 @@ public class Config {
 
     private String config;
     private Properties properties;
+    private static Config singleton = null;
 
-    public Config(String config) throws InvalidConfigurationFileException {
+    private Config(String config) throws InvalidConfigurationFileException {
         this.config = config;
         this.properties = new Properties();
         this.loadConfiguration();
     }
 
-    public void loadConfiguration() throws InvalidConfigurationFileException {
+
+    public static Config getConfig(String config) throws InvalidConfigurationFileException {
+        if(singleton == null)
+            singleton = new Config(config);
+        return singleton;
+    }
+
+
+    private void loadConfiguration() throws InvalidConfigurationFileException {
         try {
             FileReader reader = new FileReader(this.config);
             this.properties.load(reader);

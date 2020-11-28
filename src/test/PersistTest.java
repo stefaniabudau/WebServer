@@ -119,4 +119,6 @@ public class PersistTest {
         Persist persist = new Persist("resources/index.html");
         persist.setMaintenanceDir("Folder2.txt");
     }
+
+
 }

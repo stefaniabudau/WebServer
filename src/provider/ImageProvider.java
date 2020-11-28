@@ -1,13 +1,9 @@
 package provider;
 
-public class ImageProvider extends ContentProvider{
-
-    public ImageProvider(String resource) {
-        super(resource);
-    }
+public class ImageProvider implements ContentProvider{
 
     @Override
-    public String provide() {
+    public String provide(String uri) {
         return null;
     }
 }
