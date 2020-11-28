@@ -1,15 +1,18 @@
 package test;
 
 import config.Persist;
+import exception.config.ConfigurationException;
 import exception.config.InvalidMaintenanceDirException;
 import exception.config.InvalidPortNumberException;
 import exception.config.InvalidRootDirException;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class PersistTest {
 
     @Test
-    public void testSetPortNumberOk() throws InvalidPortNumberException {
+    public void testSetPortNumberOk() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         Integer[] ports = {1024, 1025, 2000, 10008, 30000, 45000, 49150, 49151};
 
@@ -20,42 +23,42 @@ public class PersistTest {
 
 
     @Test(expected = InvalidPortNumberException.class)
-    public void testSetPortNumberBad1() throws InvalidPortNumberException {
+    public void testSetPortNumberBad1() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         persist.setPortNumber(0);
     }
 
 
     @Test(expected = InvalidPortNumberException.class)
-    public void testSetPortNumberBad2() throws InvalidPortNumberException {
+    public void testSetPortNumberBad2() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         persist.setPortNumber(1);
     }
 
 
     @Test(expected = InvalidPortNumberException.class)
-    public void testSetPortNumberBad3() throws InvalidPortNumberException {
+    public void testSetPortNumberBad3() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         persist.setPortNumber(55);
     }
 
 
     @Test(expected = InvalidPortNumberException.class)
-    public void testSetPortNumberBad4() throws InvalidPortNumberException {
+    public void testSetPortNumberBad4() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         persist.setPortNumber(800);
     }
 
 
     @Test(expected = InvalidPortNumberException.class)
-    public void testSetPortNumberBad5() throws InvalidPortNumberException {
+    public void testSetPortNumberBad5() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         persist.setPortNumber(50000);
     }
 
 
     @Test
-    public void testValidSetRootDir() throws InvalidRootDirException {
+    public void testValidSetRootDir() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         String[] paths = {"c:\\folder\\FOLDER", "d:\\folder1\\folder2", "Folder2", "\\folder_1\\folder-2", "folder\\folder", "foLder" };
 
@@ -66,28 +69,28 @@ public class PersistTest {
 
 
     @Test(expected = InvalidRootDirException.class)
-    public void testInvalidRootDir1() throws InvalidRootDirException {
+    public void testInvalidRootDir1() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         persist.setRootDir("c:\\folder\\FOLDER.txt");
     }
 
 
     @Test(expected = InvalidRootDirException.class)
-    public void testInvalidRootDir2() throws InvalidRootDirException{
+    public void testInvalidRootDir2() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         persist.setRootDir("fo|lder2");
     }
 
 
     @Test(expected = InvalidRootDirException.class)
-    public void testInvalidRootDir3() throws InvalidRootDirException{
+    public void testInvalidRootDir3() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         persist.setRootDir("\\folder1\\folder:2");
     }
 
 
     @Test
-    public void testValidMaintenanceDir() throws InvalidMaintenanceDirException {
+    public void testValidMaintenanceDir() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         String[] paths = {"c:\\folder\\FOLDER", "d:\\folder1\\folder2", "Folder2", "\\folder_1\\folder-2", "folder\\folder" };
 
@@ -98,21 +101,21 @@ public class PersistTest {
 
 
     @Test(expected = InvalidMaintenanceDirException.class)
-    public void testSetMaintenanceDir1() throws InvalidMaintenanceDirException {
+    public void testSetMaintenanceDir1() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         persist.setMaintenanceDir("c:\\folder\\FOLDER.txt");
     }
 
 
     @Test(expected = InvalidMaintenanceDirException.class)
-    public void testSetMaintenanceDir2() throws InvalidMaintenanceDirException {
+    public void testSetMaintenanceDir2() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         persist.setMaintenanceDir("folder?folder");
     }
 
 
     @Test(expected = InvalidMaintenanceDirException.class)
-    public void testSetMaintenanceDir3() throws InvalidMaintenanceDirException {
+    public void testSetMaintenanceDir3() throws ConfigurationException, IOException {
         Persist persist = new Persist();
         persist.setMaintenanceDir("Folder2.txt");
     }

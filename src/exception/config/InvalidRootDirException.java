@@ -1,4 +1,4 @@
 package exception.config;
 
-public class InvalidRootDirException extends Exception {
+public class InvalidRootDirException extends ConfigurationException {
 }

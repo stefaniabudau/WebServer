@@ -1,4 +1,4 @@
 package exception.config;
 
-public class InvalidMaintenanceDirException extends Exception {
+public class InvalidMaintenanceDirException extends ConfigurationException {
 }

@@ -5,9 +5,6 @@ import exception.config.InvalidConfigurationFileException;
 import exception.config.SaveConfigurationFailureException;
 import org.junit.Test;
 
-import java.util.Hashtable;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ConfigTest {
@@ -33,7 +30,7 @@ public class ConfigTest {
                 "\\folder1\\file2.txt", "File2.txt", "folder\\filE.txt", };
 
         for(String path : paths ){
-            config.loadConfiguration(path);
+            config.loadConfiguration();
         }
     }
 
@@ -41,28 +38,28 @@ public class ConfigTest {
     @Test(expected = InvalidConfigurationFileException.class)
     public void testLoadConfigurationBad1() throws InvalidConfigurationFileException {
         Config config = new Config("valid config");
-        config.loadConfiguration("c:/te:t");
+        config.loadConfiguration();
     }
 
 
     @Test(expected = InvalidConfigurationFileException.class)
     public void testLoadConfigurationBad2() throws InvalidConfigurationFileException {
         Config config = new Config("valid config");
-        config.loadConfiguration("not|good.txt");
+        config.loadConfiguration();
     }
 
 
     @Test(expected = InvalidConfigurationFileException.class)
     public void testLoadConfigurationBad3() throws InvalidConfigurationFileException {
         Config config = new Config("valid config");
-        config.loadConfiguration(null);
+        config.loadConfiguration();
     }
 
 
     @Test(expected = InvalidConfigurationFileException.class)
     public void testLoadConfigurationBad4() throws InvalidConfigurationFileException {
         Config config = new Config("valid config");
-        config.loadConfiguration("a");
+        config.loadConfiguration();
     }
 
 

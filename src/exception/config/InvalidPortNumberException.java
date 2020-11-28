@@ -1,4 +1,4 @@
 package exception.config;
 
-public class InvalidPortNumberException extends Exception {
+public class InvalidPortNumberException extends ConfigurationException {
 }

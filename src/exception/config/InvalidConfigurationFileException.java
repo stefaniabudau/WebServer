@@ -1,4 +1,4 @@
 package exception.config;
 
-public class InvalidConfigurationFileException extends Exception{
+public class InvalidConfigurationFileException extends ConfigurationException{
 }

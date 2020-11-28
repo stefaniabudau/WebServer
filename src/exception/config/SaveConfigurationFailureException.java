@@ -1,4 +1,4 @@
 package exception.config;
 
-public class SaveConfigurationFailureException extends Exception {
+public class SaveConfigurationFailureException extends ConfigurationException {
 }
