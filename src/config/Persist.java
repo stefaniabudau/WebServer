@@ -12,8 +12,8 @@ public class Persist {
 
     private Config config;
 
-    public Persist(Config config){
-        this.config = config;
+    public Persist(String configPath) throws InvalidConfigurationFileException {
+        this.config = new Config(configPath);
     }
 
     public int getPortNumber() throws InvalidPortNumberException {
@@ -49,7 +49,6 @@ public class Persist {
             throw new InvalidPortNumberException();
         }
         this.config.setSetting("port", String.valueOf(portNumber));
-        this.config.saveConfiguration();
     }
 
 
@@ -58,7 +57,6 @@ public class Persist {
             throw new InvalidRootDirException();
         }
         this.config.setSetting("root_directory", rootDir);
-        this.config.saveConfiguration();
     }
 
 
@@ -67,6 +65,9 @@ public class Persist {
             throw new InvalidMaintenanceDirException();
         }
         this.config.setSetting("maintenance_directory", maintenanceDir);
+    }
+
+    public void save() throws SaveConfigurationFailureException, IOException {
         this.config.saveConfiguration();
     }
 }

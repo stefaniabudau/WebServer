@@ -14,9 +14,10 @@ public class Config {
     private String config;
     private Properties properties;
 
-    public Config(String config){
+    public Config(String config) throws InvalidConfigurationFileException {
         this.config = config;
         this.properties = new Properties();
+        this.loadConfiguration();
     }
 
     public void loadConfiguration() throws InvalidConfigurationFileException {

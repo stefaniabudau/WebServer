@@ -1,9 +1,12 @@
 package test;
 
 import config.Config;
+import exception.config.ConfigurationException;
 import exception.config.InvalidConfigurationFileException;
 import exception.config.SaveConfigurationFailureException;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,10 +14,10 @@ public class ConfigTest {
 
 
     /**
-     * TO DO: Implement a more efficient test, avoid hardcoding
+     * TODO: Implement a more efficient test, avoid hardcoding
      * **/
     @Test
-    public void testSetSetting(){
+    public void testSetSetting() throws InvalidConfigurationFileException {
         Config config = new Config("valid config");
 
         assertTrue(config.setSetting("Port number", "10008"));
@@ -64,7 +67,7 @@ public class ConfigTest {
 
 
     @Test(expected = SaveConfigurationFailureException.class)
-    public void testSaveConfigurationBad() throws SaveConfigurationFailureException {
+    public void testSaveConfigurationBad() throws ConfigurationException, IOException {
         Config config = new Config("valid config");
         config.saveConfiguration();
     }
