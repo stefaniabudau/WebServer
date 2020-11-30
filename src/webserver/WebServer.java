@@ -10,7 +10,6 @@ import java.io.*;
 
 public class WebServer extends Thread {
 	protected Socket clientSocket;
-	protected int state;
 
 	private WebServer(Socket clientSoc) {
 		clientSocket = clientSoc;
@@ -22,10 +21,8 @@ public class WebServer extends Thread {
 
 		try {
 			serverSocket = new ServerSocket(port);
-			System.out.println("Connection Socket Created");
 			try {
 				while (true) {
-					System.out.println("Waiting for Connection");
 					new WebServer(serverSocket.accept());
 				}
 			} catch (IOException e) {
@@ -47,8 +44,6 @@ public class WebServer extends Thread {
 
 
 	public void run() {
-		System.out.println("New Communication Thread Started");
-
 		try {
 			Channel communicationChannel = new Channel(this.clientSocket);
 
