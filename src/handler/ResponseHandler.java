@@ -1,12 +1,13 @@
 package handler;
 
+import provider.Content;
 import provider.ContentProvider;
 import provider.HTMLProvider;
 import provider.ImageProvider;
 import webserver.Request;
+import webserver.Response;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,11 +16,6 @@ import java.util.Map;
 
 public class ResponseHandler {
 
-    private Request request;
-    private OutputStream out;
-    private HashMap<String, String> responseDetails;
-    private byte[] response;
-
     private static Map<String, ContentProvider> contentProviders =
             new HashMap<String, ContentProvider>(){{
                 put("text", new HTMLProvider());
@@ -27,39 +23,38 @@ public class ResponseHandler {
                 }
             };
 
-    public ResponseHandler(OutputStream out, Request request){
-        this.out = out;
-        this.request = request;
-        this.responseDetails = new HashMap<>();
+
+    public static Response getResponse(Request request) throws IOException {
+        String message, contentType;
+        byte[] content;
+        Content receivedContent;
+
+        String uri = request.getURI();
+
+        contentType = getContentType(uri);
+        receivedContent = provideContent(uri, contentType);
+        content = receivedContent.getContent();
+
+        if(receivedContent.isOk())
+            message = "200 OK";
+        else
+            message = "404 Not found";
+
+        return new Response(
+                message,
+                contentType,
+                content
+        );
     }
 
-//    TODO: implement handleRequest method
-    public void handleResponse() throws IOException {
-
-    }
-
-    private String provideContent() throws IOException {
-        String uri = this.request.getURI();
-        String contentType = this.getContentType(uri);
-        ContentProvider provider = contentProviders.get(contentType);
+    private static Content provideContent(String uri, String contentType) throws IOException {
+        String type = contentType.split("/")[0];
+        ContentProvider provider = contentProviders.get(type);
         return provider.provide(uri);
     }
 
-    private String getContentType(String resource) throws IOException {
+    private static String getContentType(String resource) throws IOException {
         Path path = Paths.get(resource);
         return Files.probeContentType(path);
     }
-
-    private byte[] buildResponse(String message, String contentType, String content){
-        return  ("HTTP/1.1 " + message + "\r\n" +
-                "ContentType: " + contentType + "\r\n" +
-                "\r\n" +
-                content +
-                "\r\n\r\n").getBytes();
-    }
-
-    public void send(String response) throws IOException {
-        this.out.write(response.getBytes());
-    }
-
 }

@@ -6,25 +6,26 @@ import java.util.HashMap;
 
 import exception.request.InvalidRequestException;
 import parser.RequestParser;
+import webserver.Channel;
+import webserver.Request;
 
 
 public class RequestHandler {
 
-    private HashMap<String, String> requestDetails;
-    private BufferedReader in;
+    public static Request getRequest(Channel channel) throws IOException, InvalidRequestException {
+        String request = readRequest(channel.getClientEnd());
 
-    public RequestHandler(BufferedReader in) throws IOException {
-        this.requestDetails = new HashMap<>();
-        this.in = in;
+        RequestParser parser = new RequestParser(request);
+        Request r = new Request(
+                parser.getMethod(),
+                parser.getResource(),
+                parser.getHost(),
+                parser.getHTTPVersion());
+
+        return r;
     }
 
-    public HashMap handleRequests() throws IOException, InvalidRequestException {
-        String request = this.getRequest();
-        this.createNewRequest(request);
-        return this.requestDetails;
-    }
-
-    private String getRequest() throws IOException {
+    private static String readRequest(BufferedReader in) throws IOException {
         String inputLine;
         StringBuilder request = new StringBuilder();
 
@@ -36,14 +37,5 @@ public class RequestHandler {
                 break;
         }
         return request.toString();
-    }
-
-
-    private void createNewRequest(String request) throws InvalidRequestException {
-        RequestParser parser = new RequestParser(request);
-        this.requestDetails.put("method", parser.getMethod());
-        this.requestDetails.put("uri", parser.getResource());
-        this.requestDetails.put("host", parser.getHost());
-        this.requestDetails.put("HTTP version", parser.getHTTPVersion());
     }
 }

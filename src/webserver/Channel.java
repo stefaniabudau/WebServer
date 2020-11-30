@@ -12,11 +12,8 @@ public class Channel {
     private BufferedReader in;
     private OutputStream out;
 
-    public Channel(Socket socket){
+    public Channel(Socket socket) throws IOException {
         this.socket = socket;
-    }
-
-    public void create() throws IOException {
         this.in = new BufferedReader(
                 new InputStreamReader(this.socket.getInputStream()));
         this.out = this.socket.getOutputStream();
@@ -33,5 +30,7 @@ public class Channel {
     public void close() throws IOException {
         this.in.close();
         this.out.close();
+        this.socket.close();
+
     }
 }

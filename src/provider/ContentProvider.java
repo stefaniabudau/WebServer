@@ -1,5 +1,5 @@
 package provider;
 
 public interface ContentProvider {
-    public String provide(String uri);
+    public Content provide(String uri);
 }
