@@ -15,30 +15,23 @@ public class Config {
     private Properties properties;
     private static Config singleton = null;
 
-    private Config(String config) throws InvalidConfigurationFileException {
+    private Config(String config) throws InvalidConfigurationFileException, IOException {
         this.config = config;
         this.properties = new Properties();
         this.loadConfiguration();
     }
 
 
-    public static Config getConfig(String config) throws InvalidConfigurationFileException {
+    public static Config getConfig(String config) throws InvalidConfigurationFileException, IOException {
         if(singleton == null)
             singleton = new Config(config);
         return singleton;
     }
 
 
-    private void loadConfiguration() throws InvalidConfigurationFileException {
-        try {
-            FileReader reader = new FileReader(this.config);
-            this.properties.load(reader);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void loadConfiguration() throws InvalidConfigurationFileException, IOException {
+        FileReader reader = new FileReader(this.config);
+        this.properties.load(reader);
 
 //        if(!ConfigFileValidator.validate()){
 //            throw new InvalidConfigurationFileException();

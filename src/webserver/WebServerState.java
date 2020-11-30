@@ -12,34 +12,30 @@ public class WebServerState {
      * 2 -> maintenance
      * **/
 
-    private int webServerState;
+    private static int webServerState=0;
 
-    public WebServerState(){
-        this.webServerState = 1;
+    public static int getWebServerState(){
+        return webServerState;
     }
 
-    public int getWebServerState(){
-        return this.webServerState;
-    }
-
-    public void startWebServer() throws WebServerAlreadyRunningException {
-        if(this.webServerState == 1)
+    public static void startWebServer() throws WebServerAlreadyRunningException {
+        if(webServerState == 1)
             throw new WebServerAlreadyRunningException();
-        this.webServerState = 1;
+        webServerState = 1;
     }
 
 
-    public void stopWebServer() throws WebServerAlreadyInactiveException {
-        if(this.webServerState == 0)
+    public static void stopWebServer() throws WebServerAlreadyInactiveException {
+        if(webServerState == 0)
             throw new WebServerAlreadyInactiveException();
-        this.webServerState = 0;
+        webServerState = 0;
     }
 
 
-    public void maintenanceWebServer() throws WebServerMaintenanceTransitionFailException {
-        if(this.webServerState != 1)
+    public static void maintenanceWebServer() throws WebServerMaintenanceTransitionFailException {
+        if(webServerState != 1)
             throw new WebServerMaintenanceTransitionFailException();
-        this.webServerState = 2;
+        webServerState = 2;
     }
 
 }

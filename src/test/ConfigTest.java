@@ -17,7 +17,7 @@ public class ConfigTest {
 //  TODO: Fix loadConfig tests
 
     @Test
-    public void testSetSetting() throws InvalidConfigurationFileException {
+    public void testSetSetting() throws InvalidConfigurationFileException, IOException {
         Config config = Config.getConfig("valid config");
 
         assertTrue(config.setSetting("Port number", "10008"));

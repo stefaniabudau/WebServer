@@ -12,25 +12,25 @@ public class Persist {
 
     private Config config;
 
-    public Persist(String configPath) throws InvalidConfigurationFileException {
+    public Persist(String configPath) throws InvalidConfigurationFileException, IOException {
         this.config = Config.getConfig(configPath);
     }
 
     public int getPortNumber() throws InvalidPortNumberException {
         String port_str = this.config.getSetting("port");
         int port = Integer.parseInt(port_str);
-        if(!PortNumberValidator.validate(port)){
-            throw new InvalidPortNumberException();
-        }
+//        if(!PortNumberValidator.validate(port)){
+//            throw new InvalidPortNumberException();
+//        }
         return port;
     }
 
 
     public String getRootDir() throws InvalidRootDirException {
         String rootDir = this.config.getSetting("root_directory");
-        if(!RootDirValidator.validate(rootDir)){
-            throw new InvalidRootDirException();
-        }
+//        if(!RootDirValidator.validate(rootDir)){
+//            throw new InvalidRootDirException();
+//        }
         return rootDir;
     }
 
@@ -41,6 +41,18 @@ public class Persist {
             throw new InvalidMaintenanceDirException();
         }
         return maintenanceDir;
+    }
+
+
+    public String getNotFoundPage(){
+        String notFoundPage = this.config.getSetting("not_found_page");
+        return notFoundPage;
+    }
+
+
+    public String getDefaultPage(){
+        String defaultPage = this.config.getSetting("default_page");
+        return defaultPage;
     }
 
 
@@ -66,6 +78,17 @@ public class Persist {
         }
         this.config.setSetting("maintenance_directory", maintenanceDir);
     }
+
+
+    public void setNotFoundPage(String notFoundPage) throws ConfigurationException, IOException {
+        this.config.setSetting("not_found_page", notFoundPage);
+    }
+
+
+    public void setDefaultPage(String defaultPage) throws ConfigurationException, IOException {
+        this.config.setSetting("default_page", defaultPage);
+    }
+
 
     public void save() throws SaveConfigurationFailureException, IOException {
         this.config.saveConfiguration();

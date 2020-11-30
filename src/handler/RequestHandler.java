@@ -2,7 +2,6 @@ package handler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
 
 import exception.request.InvalidRequestException;
 import parser.RequestParser;
@@ -30,7 +29,7 @@ public class RequestHandler {
         StringBuilder request = new StringBuilder();
 
         while ((inputLine = in.readLine()) != null) {
-            System.out.println(inputLine);
+//            System.out.println(inputLine);
             request.append(inputLine + "\r\n");
 
             if (inputLine.trim().equals(""))

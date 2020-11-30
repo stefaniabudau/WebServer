@@ -1,9 +1,5 @@
 package webserver;
 
-import handler.ResponseHandler;
-
-import java.io.OutputStream;
-import java.net.Socket;
 import java.util.Objects;
 
 public class Response {

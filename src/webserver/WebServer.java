@@ -1,5 +1,6 @@
 package webserver;
 
+import exception.config.InvalidRootDirException;
 import exception.request.InvalidRequestException;
 import handler.RequestHandler;
 import handler.ResponseHandler;
@@ -9,6 +10,7 @@ import java.io.*;
 
 public class WebServer extends Thread {
 	protected Socket clientSocket;
+	protected int state;
 
 	private WebServer(Socket clientSoc) {
 		clientSocket = clientSoc;
@@ -51,14 +53,21 @@ public class WebServer extends Thread {
 			Channel communicationChannel = new Channel(this.clientSocket);
 
 			Request request = RequestHandler.getRequest(communicationChannel);
-			Response response = ResponseHandler.getResponse(request);
+			Response response = ResponseHandler.getResponse(request, WebServerState.getWebServerState());
 
 			this.sendResponse(communicationChannel, response);
 			communicationChannel.close();
 
-		} catch (IOException | InvalidRequestException e) {
+		} catch (IOException e) {
 			System.err.println("Problem with Communication Server");
+			e.printStackTrace();
 			System.exit(1);
+		}
+		catch (InvalidRequestException e){
+			e.printStackTrace();
+		}
+		catch (InvalidRootDirException e){
+			e.printStackTrace();
 		}
 	}
 
