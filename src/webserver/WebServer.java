@@ -1,7 +1,6 @@
 package webserver;
 
 import exception.config.ConfigurationException;
-import exception.config.InvalidRootDirException;
 import exception.request.InvalidRequestException;
 import handler.RequestHandler;
 import handler.ResponseHandler;
@@ -17,7 +16,7 @@ public class WebServer extends Thread {
 		start();
 	}
 
-	public static void runWebServer(int port) throws IOException {
+	public static void runWebServer(int port){
 		ServerSocket serverSocket = null;
 
 		try {

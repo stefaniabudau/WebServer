@@ -3,24 +3,23 @@ package test;
 import config.Config;
 import exception.config.*;
 import org.junit.Test;
+import org.junit.Assert;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ConfigTest {
 
     @Test
     public void testLoadConfig() throws IOException, InvalidConfigurationFileException {
-        Config config = Config.getConfig("config/test.properties");
+        Config.getConfig("config/test.properties");
     }
 
     @Test
     public void testLoadConfigSingleton() throws IOException, InvalidConfigurationFileException {
         Config config1 = Config.getConfig("config/test.properties");
         Config config2 = Config.getConfig("config/config.properties");
-
-        assertTrue(config1.equals(config2));
+        Assert.assertTrue(config1.equals(config2));
     }
 
     @Test

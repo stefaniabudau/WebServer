@@ -59,7 +59,7 @@ public class ResponseHandler {
             ContentProvider provider = getProvider(type);
 
             if(provider == null) content = new HTMLProvider().provide404();
-            content = provider.provide(uri);
+            else content = provider.provide(uri);
 
             if (provider.isNotFound()) message="404 Not Found";
             else message="200 OK";

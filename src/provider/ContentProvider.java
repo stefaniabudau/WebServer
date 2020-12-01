@@ -2,7 +2,6 @@ package provider;
 import config.Persist;
 import config.Settings;
 import exception.config.ConfigurationException;
-import exception.config.InvalidRootDirException;
 
 import java.io.IOException;
 

@@ -14,14 +14,24 @@ public class Main {
         WebServerState.init();
 
         Persist persist = Settings.persist;
+        Scanner in = new Scanner(System.in);
+
+        while(true) {
+            try {
+                System.out.println("Run on port: ");
+                int inputPort = in.nextInt();
+                persist.setPortNumber(inputPort);
+                break;
+            } catch (ConfigurationException e) {
+                System.err.println("Invalid port number");
+            }
+        }
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     WebServer.runWebServer(persist.getPortNumber());
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (ConfigurationException e) {
                     e.printStackTrace();
                 }
@@ -32,7 +42,6 @@ public class Main {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Scanner in = new Scanner(System.in);
 
                 while (true) {
                     printServerSettingsMenu();
@@ -70,5 +79,6 @@ public class Main {
         System.out.println("Enter your option:");
 //        System.out.flush();
     }
+
 }
 

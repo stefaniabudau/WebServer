@@ -17,7 +17,7 @@ public class Config {
 
     private String config;
     private Properties properties;
-    private static Config singleton = null;
+    private static volatile Config singleton = null;
 
     private Config(String config) throws InvalidConfigurationFileException, IOException {
         this.config = config;
@@ -40,11 +40,14 @@ public class Config {
 
         FileReader reader = new FileReader(this.config);
         this.properties.load(reader);
+
+        reader.close();
     }
 
     public void saveConfiguration() throws IOException {
         FileWriter writer = new FileWriter(this.config);
         properties.store(writer, "");
+        writer.close();
     }
 
     public String getSetting(String key) throws ConfigurationException {
@@ -80,4 +83,8 @@ public class Config {
                 Objects.equals(properties, config1.properties);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(config, properties);
+    }
 }

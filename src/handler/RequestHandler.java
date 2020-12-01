@@ -13,15 +13,13 @@ public class RequestHandler {
 
     public static Request getRequest(Channel channel) throws IOException, InvalidRequestException {
         String request = readRequest(channel.getClientEnd());
-
         RequestParser parser = new RequestParser(request);
-        Request r = new Request(
+
+        return new Request(
                 parser.getMethod(),
                 parser.getResource(),
                 parser.getHost(),
                 parser.getHTTPVersion());
-
-        return r;
     }
 
     private static String readRequest(BufferedReader in) throws IOException {
