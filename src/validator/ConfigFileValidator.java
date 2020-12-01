@@ -48,4 +48,17 @@ public class ConfigFileValidator {
         return true;
     }
 
+    public static boolean validatePage(String filePath){
+        try {
+            Path path = Paths.get(filePath);
+            if(!Files.exists(path)) return false;
+            if(!filePath.endsWith(".html")) return false;
+
+        } catch (InvalidPathException | NullPointerException ex) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

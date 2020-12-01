@@ -2,16 +2,13 @@ package config;
 
 import exception.config.*;
 import validator.ConfigFileValidator;
-import validator.RootDirValidator;
-
-import java.io.IOException;
 
 
 public class Persist {
 
     private Config config;
 
-    public Persist(Config config) throws InvalidConfigurationFileException, IOException {
+    public Persist(Config config){
         this.config = config;
     }
 
@@ -55,7 +52,7 @@ public class Persist {
     }
 
 
-    public void setPortNumber(int portNumber) throws ConfigurationException, IOException {
+    public void setPortNumber(int portNumber) throws ConfigurationException{
         if(!ConfigFileValidator.validatePortNumber(portNumber)){
             throw new InvalidPortNumberException();
         }
@@ -63,7 +60,7 @@ public class Persist {
     }
 
 
-    public void setRootDir(String rootDir) throws ConfigurationException, IOException {
+    public void setRootDir(String rootDir) throws ConfigurationException{
         if(!ConfigFileValidator.validateRootDir(rootDir)){
             throw new InvalidRootDirException();
         }
@@ -71,7 +68,7 @@ public class Persist {
     }
 
 
-    public void setMaintenanceDir(String maintenanceDir) throws ConfigurationException, IOException {
+    public void setMaintenanceDir(String maintenanceDir) throws ConfigurationException{
         if(!ConfigFileValidator.validateMaintenanceDir(maintenanceDir)){
             throw new InvalidMaintenanceDirException();
         }
@@ -79,17 +76,18 @@ public class Persist {
     }
 
 
-    public void setNotFoundPage(String notFoundPage) throws ConfigurationException, IOException {
+    public void setNotFoundPage(String notFoundPage) throws ConfigurationException{
+        if(!ConfigFileValidator.validatePage(notFoundPage)){
+            throw new InvalidPageException();
+        }
         this.config.setSetting("not_found_page", notFoundPage);
     }
 
 
-    public void setDefaultPage(String defaultPage) throws ConfigurationException, IOException {
+    public void setDefaultPage(String defaultPage) throws ConfigurationException{
+        if(!ConfigFileValidator.validatePage(defaultPage)){
+            throw new InvalidPageException();
+        }
         this.config.setSetting("default_page", defaultPage);
-    }
-
-
-    public void save() throws SaveConfigurationFailureException, IOException {
-        this.config.saveConfiguration();
     }
 }
