@@ -1,6 +1,6 @@
 package provider;
 
-import exception.config.InvalidRootDirException;
+import exception.config.ConfigurationException;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 public class HTMLProvider extends ContentProvider {
 
     @Override
-    public byte[] provide(String uri) throws InvalidRootDirException, IOException {
+    public byte[] provide(String uri) throws ConfigurationException, IOException {
         Path path = Paths.get(persist.getRootDir() + File.separatorChar +
                 "pages" + File.separatorChar + uri);
 
@@ -19,12 +19,12 @@ public class HTMLProvider extends ContentProvider {
         return Files.readAllBytes(path);
     }
 
-    public byte[] provide404() throws IOException {
+    public byte[] provide404() throws IOException, ConfigurationException {
         Path notFound = Paths.get(persist.getNotFoundPage());
         return Files.readAllBytes(notFound);
     }
 
-    public byte[] provideDefault() throws IOException {
+    public byte[] provideDefault() throws IOException, ConfigurationException {
         Path def = Paths.get(persist.getDefaultPage());
         return Files.readAllBytes(def);
     }

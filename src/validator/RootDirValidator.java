@@ -2,7 +2,8 @@ package validator;
 
 public class RootDirValidator {
 
-    public static boolean validate(String rootDir){
+    public static boolean validateRootDir(String rootDir){
         return false;
     }
 }
+

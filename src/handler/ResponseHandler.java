@@ -1,5 +1,6 @@
 package handler;
 
+import exception.config.ConfigurationException;
 import exception.config.InvalidRootDirException;
 import provider.CSSProvider;
 import provider.ContentProvider;
@@ -15,7 +16,7 @@ import java.nio.file.Paths;
 
 public class ResponseHandler {
 
-    public static Response getResponse(Request request, Integer state) throws IOException, InvalidRootDirException {
+    public static Response getResponse(Request request, Integer state) throws IOException, ConfigurationException {
         Response response;
         String uri = request.getURI();
 
@@ -73,7 +74,7 @@ public class ResponseHandler {
         return response;
     }
 
-    private static ContentProvider getProvider(String contentType) throws IOException, InvalidRootDirException {
+    private static ContentProvider getProvider(String contentType) {
         ContentProvider provider;
 
 //        TODO: Implement in a software engineering manner

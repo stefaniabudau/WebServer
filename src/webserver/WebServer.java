@@ -1,5 +1,6 @@
 package webserver;
 
+import exception.config.ConfigurationException;
 import exception.config.InvalidRootDirException;
 import exception.request.InvalidRequestException;
 import handler.RequestHandler;
@@ -57,11 +58,7 @@ public class WebServer extends Thread {
 			System.err.println("Problem with Communication Server");
 			e.printStackTrace();
 			System.exit(1);
-		}
-		catch (InvalidRequestException e){
-			e.printStackTrace();
-		}
-		catch (InvalidRootDirException e){
+		} catch (ConfigurationException | InvalidRequestException e) {
 			e.printStackTrace();
 		}
 	}

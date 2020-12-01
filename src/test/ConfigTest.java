@@ -1,9 +1,7 @@
 package test;
 
 import config.Config;
-import exception.config.ConfigurationException;
-import exception.config.InvalidConfigurationFileException;
-import exception.config.SaveConfigurationFailureException;
+import exception.config.*;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -12,63 +10,64 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ConfigTest {
 
-
-//  TODO: Implement a more efficient test, avoid hardcoding
-//  TODO: Fix loadConfig tests
-
     @Test
-    public void testSetSetting() throws InvalidConfigurationFileException, IOException {
-        Config config = Config.getConfig("valid config");
-
-        assertTrue(config.setSetting("Port number", "10008"));
-        assertTrue(config.setSetting("Root dir", "/rootdir"));
-        assertTrue(config.setSetting("Maintenance Dir", "/mdir"));
+    public void testLoadConfig() throws IOException, InvalidConfigurationFileException {
+        Config config = Config.getConfig("config/test.properties");
     }
 
-//
-//    @Test
-//    public void testLoadConfigurationOk() throws InvalidConfigurationFileException {
-//        Config config = Config.getConfig("valid config");
-//        String[] paths = {"good.txt", "good_file.txt", "good-file.txt", "GOOD.txt", "c:\\folder\\file.txt",
-//                "\\folder1\\file2.txt", "File2.txt", "folder\\filE.txt", };
-//
-//        for(String path : paths ){
-//            config.loadConfiguration();
-//        }
-//    }
-//
-//
-//    @Test(expected = InvalidConfigurationFileException.class)
-//    public void testLoadConfigurationBad1() throws InvalidConfigurationFileException {
-//        Config config = Config.getConfig("valid config");
-//        config.loadConfiguration();
-//    }
-//
-//
-//    @Test(expected = InvalidConfigurationFileException.class)
-//    public void testLoadConfigurationBad2() throws InvalidConfigurationFileException {
-//        Config config = Config.getConfig("valid config");
-//        config.loadConfiguration();
-//    }
-//
-//
-//    @Test(expected = InvalidConfigurationFileException.class)
-//    public void testLoadConfigurationBad3() throws InvalidConfigurationFileException {
-//        Config config = Config.getConfig("valid config");
-//        config.loadConfiguration();
-//    }
-//
-//
-//    @Test(expected = InvalidConfigurationFileException.class)
-//    public void testLoadConfigurationBad4() throws InvalidConfigurationFileException {
-//        Config config = Config.getConfig("valid config");
-//        config.loadConfiguration();
-//    }
+    @Test
+    public void testLoadConfigSingleton() throws IOException, InvalidConfigurationFileException {
+        Config config1 = Config.getConfig("config/test.properties");
+        Config config2 = Config.getConfig("config/config.properties");
 
+        assertTrue(config1.equals(config2));
+    }
 
-    @Test(expected = SaveConfigurationFailureException.class)
-    public void testSaveConfigurationBad() throws ConfigurationException, IOException {
-        Config config = Config.getConfig("valid config");
+    @Test
+    public void testSaveConfiguration() throws IOException, InvalidConfigurationFileException {
+        Config config = Config.getConfig("config/test.properties");
         config.saveConfiguration();
+    }
+
+    @Test(expected = NullSettingException.class)
+    public void testGetInvalidKeySetting() throws IOException, ConfigurationException {
+        Config config = Config.getConfig("config/test.properties");
+        config.getSetting("invalid key");
+    }
+
+    @Test(expected = InvalidSettingException.class)
+    public void testGetNullSetting() throws IOException, ConfigurationException {
+        Config config = Config.getConfig("config/test.properties");
+        config.getSetting(null);
+    }
+
+    @Test(expected = InvalidSettingException.class)
+    public void testSetNullKeySetting() throws IOException, ConfigurationException {
+        Config config = Config.getConfig("config/test.properties");
+        config.setSetting(null, "some value");
+    }
+
+    @Test(expected = InvalidSettingException.class)
+    public void testSetNullValueSetting() throws IOException, ConfigurationException {
+        Config config = Config.getConfig("config/test.properties");
+        config.setSetting("key", null);
+    }
+
+    @Test(expected = InvalidSettingException.class)
+    public void testSetNullSetting() throws IOException, ConfigurationException {
+        Config config = Config.getConfig("config/test.properties");
+        config.setSetting(null, null);
+    }
+
+    @Test(expected = InvalidSettingException.class)
+    public void testSetInvalidKeySetting() throws ConfigurationException, IOException {
+        Config config = Config.getConfig("config/test.properties");
+        config.setSetting("key", "val");
+    }
+
+    @Test
+    public void testSetValidKeySetting() throws ConfigurationException, IOException {
+        Config config = Config.getConfig("config/test.properties");
+        config.setSetting("port", "12345");
     }
 }

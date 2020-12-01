@@ -1,6 +1,6 @@
 package provider;
 
-import exception.config.InvalidRootDirException;
+import exception.config.ConfigurationException;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 public class ImageProvider extends ContentProvider{
 
     @Override
-    public byte[] provide(String uri) throws IOException, InvalidRootDirException {
+    public byte[] provide(String uri) throws IOException, ConfigurationException {
         Path path = Paths.get(persist.getRootDir() + File.separatorChar +
                 "images" + File.separatorChar + uri);
 

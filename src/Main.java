@@ -1,5 +1,6 @@
 import config.Persist;
 import config.Settings;
+import exception.config.ConfigurationException;
 import exception.config.InvalidPortNumberException;
 import exception.webserverstate.WebServerStateException;
 import webserver.WebServer;
@@ -20,7 +21,7 @@ public class Main {
                     WebServer.runWebServer(persist.getPortNumber());
                 } catch (IOException e) {
                     e.printStackTrace();
-                } catch (InvalidPortNumberException e) {
+                } catch (ConfigurationException e) {
                     e.printStackTrace();
                 }
             }
