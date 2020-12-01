@@ -1,7 +1,6 @@
 import config.Persist;
 import config.Settings;
 import exception.config.ConfigurationException;
-import exception.config.InvalidPortNumberException;
 import exception.webserverstate.WebServerStateException;
 import webserver.WebServer;
 import webserver.WebServerState;
@@ -12,6 +11,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Settings.init();
+        WebServerState.init();
+
         Persist persist = Settings.persist;
 
         new Thread(new Runnable() {

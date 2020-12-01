@@ -12,7 +12,11 @@ public class WebServerState {
      * 2 -> maintenance
      * **/
 
-    private static int webServerState=0;
+    private static int webServerState;
+
+    public static void init(){
+        webServerState = 0;
+    }
 
     public static int getWebServerState(){
         return webServerState;

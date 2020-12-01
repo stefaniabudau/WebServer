@@ -10,41 +10,61 @@ import webserver.WebServerState;
 
 public class WebServerStateTest {
 
-    @Test(expected = WebServerAlreadyRunningException.class)
-    public void testStartRunningWebServer() throws WebServerStateException{
-        WebServerState state = new WebServerState();
-        state.startWebServer();
+    @Test
+    public void testStartStoppedWebServer() throws WebServerStateException{
+        WebServerState.init();
+        WebServerState.startWebServer();
     }
 
+    @Test
+    public void testStartMaintenanceWebServer() throws WebServerStateException{
+        WebServerState.init();
+        WebServerState.startWebServer();
+        WebServerState.maintenanceWebServer();
+        WebServerState.startWebServer();
+    }
 
     @Test
-    public void testStartInMaintenanceWebServer() throws WebServerStateException{
-        WebServerState state = new WebServerState();
-        state.maintenanceWebServer();
-        state.startWebServer();
+    public void testMaintenanceRunningWebServer() throws WebServerStateException{
+        WebServerState.init();
+        WebServerState.startWebServer();
+        WebServerState.maintenanceWebServer();
+    }
+
+    @Test
+    public void testStopRunningWebServer() throws WebServerStateException{
+        WebServerState.init();
+        WebServerState.startWebServer();
+        WebServerState.stopWebServer();
     }
 
 
     @Test
     public void testStopInMaintenanceWebServer() throws WebServerStateException{
-        WebServerState state = new WebServerState();
-        state.maintenanceWebServer();
-        state.stopWebServer();
-    }
-
-
-    @Test(expected = WebServerMaintenanceTransitionFailException.class)
-    public void testMaintenanceStoppedWebServer() throws WebServerStateException{
-        WebServerState state = new WebServerState();
-        state.stopWebServer();
-        state.maintenanceWebServer();
+        WebServerState.init();
+        WebServerState.startWebServer();
+        WebServerState.maintenanceWebServer();
+        WebServerState.stopWebServer();
     }
 
 
     @Test(expected = WebServerAlreadyInactiveException.class)
     public void testStopStoppedWebServer() throws WebServerStateException{
-        WebServerState state = new WebServerState();
-        state.stopWebServer();
-        state.stopWebServer();
+        WebServerState.init();
+        WebServerState.stopWebServer();
+    }
+
+
+    @Test(expected = WebServerMaintenanceTransitionFailException.class)
+    public void testMaintenanceStoppedWebServer() throws WebServerStateException{
+        WebServerState.init();
+        WebServerState.maintenanceWebServer();
+    }
+
+    @Test(expected = WebServerAlreadyRunningException.class)
+    public void testStartRunningWebServer() throws WebServerAlreadyRunningException {
+        WebServerState.init();
+        WebServerState.startWebServer();
+        WebServerState.startWebServer();
     }
 }
