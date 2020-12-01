@@ -15,7 +15,7 @@ public class CSSProvider extends ContentProvider{
         Path path = Paths.get(persist.getRootDir() + File.separatorChar +
                 "css" + File.separatorChar + uri);
 
-        if(!Files.exists(path)) return "".getBytes();
+        if(!Files.exists(path)) {notFound=true; return "".getBytes();}
         return Files.readAllBytes(path);
     }
 }

@@ -14,6 +14,8 @@ public class HTMLProvider extends ContentProvider {
     public byte[] provide(String uri) throws InvalidRootDirException, IOException {
         Path path = Paths.get(persist.getRootDir() + File.separatorChar +
                 "pages" + File.separatorChar + uri);
+
+        if(!Files.exists(path)) {notFound=true; return provide404();}
         return Files.readAllBytes(path);
     }
 

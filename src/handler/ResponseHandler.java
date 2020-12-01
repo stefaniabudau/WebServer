@@ -21,7 +21,7 @@ public class ResponseHandler {
 
         if(state == 0){
             return new Response(
-                    "503",
+                    "503 Service Unavailable",
                     "text/html",
                     new HTMLProvider().provide404()
             );
@@ -50,19 +50,33 @@ public class ResponseHandler {
             );
         }
         else{
+            byte[] content;
+            String message;
+            String type;
+
+            type = getContentType(uri);
+            ContentProvider provider = getProvider(type);
+
+            if(provider == null) content = new HTMLProvider().provide404();
+            content = provider.provide(uri);
+
+            if (provider.isNotFound()) message="404 Not Found";
+            else message="200 OK";
+
             response = new Response(
-                    "200 OK",
-                    getContentType(uri),
-                    provideContent(uri, getContentType(uri))
+                    message,
+                    type,
+                    content
             );
         }
 
         return response;
     }
 
-    private static byte[] provideContent(String uri, String contentType) throws IOException, InvalidRootDirException {
+    private static ContentProvider getProvider(String contentType) throws IOException, InvalidRootDirException {
         ContentProvider provider;
 
+//        TODO: Implement in a software engineering manner
         if(contentType.contains("html"))
             provider = new HTMLProvider();
         else if (contentType.contains("css"))
@@ -70,9 +84,9 @@ public class ResponseHandler {
         else if (contentType.contains("image"))
             provider = new ImageProvider();
         else
-            return new HTMLProvider().provide404();
+            provider = null;
 
-        return provider.provide(uri);
+        return provider;
     }
 
     private static String getContentType(String resource) throws IOException {

@@ -14,10 +14,8 @@ public class ImageProvider extends ContentProvider{
     public byte[] provide(String uri) throws IOException, InvalidRootDirException {
         Path path = Paths.get(persist.getRootDir() + File.separatorChar +
                 "images" + File.separatorChar + uri);
-        if(Files.exists(path))
-            return Files.readAllBytes(path);
 
-        Path notFound = Paths.get(persist.getNotFoundPage());
-        return Files.readAllBytes(notFound);
+        if(!Files.exists(path)) {notFound=true; return "".getBytes();}
+        return Files.readAllBytes(path);
     }
 }

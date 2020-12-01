@@ -10,7 +10,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Settings.init();
         Persist persist = Settings.persist;
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -57,14 +59,14 @@ public class Main {
     }
 
     public static void printServerSettingsMenu(){
-        System.out.println("***************Server settings***************");
+        System.out.println("*************** Server settings ***************");
         System.out.println("Current state: " + WebServerState.getWebServerState());
         System.out.println("* Set to state 0 (Stopped)");
         System.out.println("* Set to state 1 (Running)");
         System.out.println("* Set to state 2 (Maintenance)");
-        System.out.println("* Exit program: x");
+        System.out.println("* Exit program: 3");
         System.out.println("Enter your option:");
-        System.out.flush();
+//        System.out.flush();
     }
 }
 

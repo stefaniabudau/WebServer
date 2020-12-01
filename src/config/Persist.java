@@ -12,8 +12,8 @@ public class Persist {
 
     private Config config;
 
-    public Persist(String configPath) throws InvalidConfigurationFileException, IOException {
-        this.config = Config.getConfig(configPath);
+    public Persist(Config config) throws InvalidConfigurationFileException, IOException {
+        this.config = config;
     }
 
     public int getPortNumber() throws InvalidPortNumberException {
