@@ -1,0 +1,10 @@
+td {
+    width: 50%;
+}
+
+img{
+    display: block;
+    height: 70%;
+    width: auto;
+    align:left;
+}

@@ -68,6 +68,7 @@ public class Config {
                 add("default_page");
                 add("port");
                 add("not_found_page");
+                add("service_unavailable_page");
         }};
 
         if(!validKeys.contains(key)) throw new InvalidSettingException();

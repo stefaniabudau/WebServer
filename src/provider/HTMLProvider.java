@@ -24,6 +24,12 @@ public class HTMLProvider extends ContentProvider {
         return Files.readAllBytes(notFound);
     }
 
+    public byte[] provide503() throws IOException, ConfigurationException {
+        Path serviceUnavailable = Paths.get(persist.getServiceUnavailablePage());
+        return Files.readAllBytes(serviceUnavailable);
+    }
+
+
     public byte[] provideDefault() throws IOException, ConfigurationException {
         Path def = Paths.get(persist.getDefaultPage());
         return Files.readAllBytes(def);

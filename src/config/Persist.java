@@ -45,6 +45,11 @@ public class Persist {
         return notFoundPage;
     }
 
+    public String getServiceUnavailablePage() throws ConfigurationException {
+        String notFoundPage = this.config.getSetting("service_unavailable_page");
+        return notFoundPage;
+    }
+
 
     public String getDefaultPage() throws ConfigurationException {
         String defaultPage = this.config.getSetting("default_page");

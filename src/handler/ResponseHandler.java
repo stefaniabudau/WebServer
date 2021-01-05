@@ -24,14 +24,14 @@ public class ResponseHandler {
             return new Response(
                     "503 Service Unavailable",
                     "text/html",
-                    new HTMLProvider().provide404()
+                    new HTMLProvider().provide503()
             );
         }
         else if(state == 2){
             return new Response(
-                    "503 Srvice Unavailable",
+                    "503 Service Unavailable",
                     "text/html",
-                    new HTMLProvider().provide404()
+                    new HTMLProvider().provide503()
             );
         }
 

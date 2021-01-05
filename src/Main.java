@@ -27,6 +27,12 @@ public class Main {
             }
         }
 
+        try {
+            System.out.println("Running at http://127.0.0.1:" + persist.getPortNumber() + '\n');
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+        }
+
         new Thread(new Runnable() {
             @Override
             public void run() {
