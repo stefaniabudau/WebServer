@@ -33,33 +33,32 @@ public class Main {
             e.printStackTrace();
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    WebServer.runWebServer(persist.getPortNumber());
-                } catch (ConfigurationException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
 
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+                Thread webServerInstance = null;
 
                 while (true) {
                     printServerSettingsMenu();
 
                     try {
                         switch (in.nextInt()) {
-                            case 0:
+                            case 0: {
                                 WebServerState.stopWebServer();
                                 break;
+                            }
                             case 1:
+                            {
+                                if(WebServerState.getWebServerState() == 0) {
+                                    webServerInstance = getWebServer(persist.getPortNumber());
+                                    webServerInstance.start();
+                                }
+
                                 WebServerState.startWebServer();
                                 break;
+                            }
                             case 2:
                                 WebServerState.maintenanceWebServer();
                                 break;
@@ -67,7 +66,7 @@ public class Main {
                                 System.exit(0);
                         }
 
-                    } catch (WebServerStateException e) {
+                    } catch (WebServerStateException | ConfigurationException  e) {
                         e.printStackTrace();
                     }
                 }
@@ -84,6 +83,22 @@ public class Main {
         System.out.println("* Exit program: 3");
         System.out.println("Enter your option:");
 //        System.out.flush();
+    }
+
+
+    public static Thread getWebServer(int port){
+        return new Thread(new Runnable() {
+            private boolean running = true;
+
+            @Override
+            public void run() {
+                try {
+                    WebServer.runWebServer(Settings.persist.getPortNumber());
+                } catch (ConfigurationException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }

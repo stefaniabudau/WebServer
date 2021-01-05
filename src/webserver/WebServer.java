@@ -23,11 +23,15 @@ public class WebServer extends Thread {
 			serverSocket = new ServerSocket(port);
 			try {
 				while (true) {
+					if(WebServerState.getWebServerState() == 0) {
+						serverSocket.close();
+						return;
+					}
 					new WebServer(serverSocket.accept());
 				}
 			} catch (IOException e) {
 				System.err.println("Accept failed.");
-				System.exit(1);
+//				System.exit(1);
 			}
 		} catch (IOException e) {
 			System.err.println("Could not listen on port: " + port);

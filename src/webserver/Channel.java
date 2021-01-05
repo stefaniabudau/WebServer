@@ -31,6 +31,5 @@ public class Channel {
         this.in.close();
         this.out.close();
         this.socket.close();
-
     }
 }
