@@ -1,0 +1,34 @@
+{
+  "project-settings": {
+    "allure.tests.management.pattern": "",
+    "marathon.issue.dir": "%marathon.project.dir%/Issues",
+    "marathon.checklist.dir": "%marathon.project.dir%/Checklists",
+    "marathon.test.dir": "%marathon.project.dir%/TestCases",
+    "marathon.application.rubyhome": "",
+    "marathon.application.launchtime": "60000",
+    "allure.issues.tracker.pattern": "",
+    "marathon.data.dir": "%marathon.project.dir%/TestData",
+    "marathon.application.arguments": "",
+    "marathon.aut.executable.launch": "%marathon.project.dir%/../webserver.jar",
+    "marathon.feature.dir": "%marathon.project.dir%/Features",
+    "marathon.application.working.dir": "C:\\Users\\Stefii\\Desktop\\Year_4\\SVV\\SVV-Project\\WebServer",
+    "marathon.capture.dir": "%marathon.project.dir%/Modules",
+    "marathon.project.launcher.model": "com.jaliansystems.marathonite.launchers.executablejar.FXExecutableJarLauncherModel",
+    "marathon.story.dir": "%marathon.project.dir%/Stories",
+    "marathon.fixture.dir": "%marathon.project.dir%/Fixtures",
+    "marathon.project.description": "",
+    "marathon.application.java.home": "",
+    "marathon.application.start.window": "",
+    "marathon.project.name": "WebServerTest",
+    "marathon.suite.dir": "%marathon.project.dir%/TestSuites",
+    "marathon.application.rubypath": "",
+    "marathon.project.script.model": "com.jaliansystems.marathonite.refactor.ruby.MarathonITERubyScriptModel",
+    "marathon.application.vm.arguments": ""
+  },
+  "display": {},
+  "navigator": {},
+  "workspace": {},
+  "project": {
+    "fixture": "default"
+  }
+}

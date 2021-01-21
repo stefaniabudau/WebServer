@@ -1,0 +1,11 @@
+- !!net.sourceforge.marathon.objectmap.OMapContainer
+    containerGeneralProperties:
+    - {name: type, value: javafx.stage.Stage}
+    - {name: title, value: WebServer}
+    containerRecognitionProperties:
+    - {method: equals, name: type, value: javafx.stage.Stage}
+    - {method: equals, name: title, value: WebServer}
+    containerTitles: [WebServer]
+    created: 1611154098841
+    fileName: WebServer_810801190697089974.yaml
+    modified: 1611154127408
