@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="webserver">
+    <output-path>$PROJECT_DIR$/classes/artifacts/webserver</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="gui.MainGUI" />
+        <option name="description" value="" />
+        <option name="height" value="330" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+        <option name="width" value="690" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="webserver.jar">
+        <element id="module-output" name="webserver" />
+      </element>
+    </root>
+  </artifact>
+</component>
